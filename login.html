@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form Animation CSS | Codehal</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+
+
+    <div class="login-box">
+        <form id="mainForm" method="post" action="#">
+
+            <input type="checkbox" class="input-check" id="input-check">
+
+            <h2>Login</h2>
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="mail"></ion-icon>
+                </span>
+                <input type="email" required id="email">
+                <label>Email</label>
+                <div class="input-line"></div>
+            </div>
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="lock-closed"></ion-icon>
+                </span>
+                <input type="password" required id="password">
+                <label>Password</label>
+                <div class="input-line"></div>
+            </div>
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" onclick=handleLogin() >Login</button>
+
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="signup.html">Register</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBHej_ut8itswaQZzcqdxQuwH7HcvX8_hY",
+            authDomain: "e-waste-management-2d92e.firebaseapp.com",
+            databaseURL: "https://e-waste-management-2d92e-default-rtdb.firebaseio.com",
+            projectId: "e-waste-management-2d92e",
+            storageBucket: "e-waste-management-2d92e.appspot.com",
+            messagingSenderId: "1078912924859",
+            appId: "1:1078912924859:web:865a62477bd7b39af13d9e",
+            measurementId: "G-JZ0BZN403B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth(app);
+        const dbref = ref(db);
+
+        let email = document.getElementById('email');
+        let password = document.getElementById('password');
+        let mainForm = document.getElementById('mainForm');
+       function  handleLogin(){
+    console.log("Login button clicked")
+}
+
+        let loginUser = evt => {
+            evt.preventDefault();
+
+            signInWithEmailAndPassword(auth, email.value, password.value)
+                .then((credentials) => {
+                    get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot) => {
+                        if (snapshot.exists) {
+                            sessionStorage.setItem("user-info", JSON.stringify({
+                                fname: snapshot.val().firstname,
+                                lname: snapshot.val().lastname,
+                                cont: snapshot.val().contact
+                            }));
+                            sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                            window.location.href = 'book.html';
+                        }
+                    });
+                })
+                .catch((error) => {
+                    alert(error.message);
+                    console.log(error.code);
+                    console.log(error.message);
+                });
+        };
+
+        mainForm.addEventListener('submit', loginUser);
+    </script>
+
+</body>
+
+</html>

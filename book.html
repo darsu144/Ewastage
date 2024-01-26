@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="book.css">
+</head>
+<body>
+    <div class="main">
+        <div class="logo">
+            <img src="janasewa6.png" alt="Logo">
+        </div>
+    </div>
+    <ul><li><a href="index.html">Home</a></li>
+      <li><a href="About.html">About us</a></li>
+      <li><a href="contactus.html">Contact Us</a></li>
+      <button type="button"  id="signoutbutton">Sign out</button>
+        <h2 id="msg"></h2>
+        <h2 id="greet"></h2>
+      <script>
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo= JSON.parse(sessionStorage.getItem("user-info"));
+
+        let MsgHead= document.getElementById('msg');
+        let GreetHead= document.getElementById('greet');
+        let SignoutBtn= document.getElementById('signoutbutton');
+         
+       
+      
+        let Signout = ()=>{
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+            window.location.href = 'index.html';
+        }
+        let checkCred = ()=>
+        {
+            if(!sessionStorage.getItem("user-creds"))
+            window.location.href = 'index.html'
+        else{
+            MsgHead.innerText = `user with email  "${UserCreds.email}" logged in`;
+        GreetHead.innerText = `welcome "${UserInfo.fname + " " +UserInfo.lname}`;
+        }
+        }
+        window.addEventListener('load', checkCred);
+        SignoutBtn.addEventListener('click', Signout);
+      </script>
+</body>
+</html>
+

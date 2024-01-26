@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services</title>
+    <link rel="stylesheet" href="service.css">
+    <style>
+        
+        
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 1000;
+        }
+
+       
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Our Services</h1>
+    </header>
+
+    <section>
+        <h1>Mobiles</h1>
+        <img src="./mobile.jpg" alt="">
+        <div>
+            <button onclick="showPopup('popupMobile', 'overlayMobile')">Buy Now</button>
+        </div>
+        <p></p>
+    </section>
+
+    <div id="popupMobile" class="popup">
+        <p>This is mobiles waste</p> <br> Price of mobile = RS600 <br>
+        <button onclick="closePopup('popupMobile', 'overlayMobile')">Close</button>
+    </div>
+
+    <div id="overlayMobile" class="overlay"></div>
+
+    <section>
+        <h2>Desktop</h2>
+        <img src="./desktop.jpg" alt="">
+        <button onclick="showPopup('popupDesktop', 'overlayDesktop')">Buy Now</button>
+    </section>
+
+    <div id="popupDesktop" class="popup">
+        <p>This is desktop waste</p> <br> Price of desktop = RS500 <br>
+        <button onclick="closePopup('popupDesktop', 'overlayDesktop')">Close</button>
+    </div>
+
+    <div id="overlayDesktop" class="overlay"></div>
+
+
+
+    <script>
+        function showPopup(popupId, overlayId) {
+            document.getElementById(popupId).style.display = 'block';
+            document.getElementById(overlayId).style.display = 'block';
+        }
+
+        function closePopup(popupId, overlayId) {
+            document.getElementById(popupId).style.display = 'none';
+            document.getElementById(overlayId).style.display = 'none';
+        }
+    </script>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBHej_ut8itswaQZzcqdxQuwH7HcvX8_hY",
+        authDomain: "e-waste-management-2d92e.firebaseapp.com",
+        databaseURL: "https://e-waste-management-2d92e-default-rtdb.firebaseio.com",
+        projectId: "e-waste-management-2d92e",
+        storageBucket: "e-waste-management-2d92e.appspot.com",
+        messagingSenderId: "1078912924859",
+        appId: "1:1078912924859:web:865a62477bd7b39af13d9e",
+        measurementId: "G-JZ0BZN403B"
+    };
+</Script>
+</body>
+</html>
